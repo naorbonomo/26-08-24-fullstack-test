@@ -1,30 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import Books from './components/pages/books';
-import { fetchAllBooks } from './api/rentClient';
-import { BookType } from './types/bookType';
+import ServerList from './components/serverList';
+import { serverType } from './types/serverType';
+import { getServers } from './api/serverAPI';
+import ServerCard from './components/serverCard';
+
 
 function App() {
-    const [books, setBooks] = useState<BookType[]>([]);
+    const [servers, setservers] = useState<serverType[]>([]);
 
     useEffect(() => {
-        // get all books from BE
-        fetchAllBooks()
+        // get all servers from BE
+        getServers()
             .then((data) => {
                 if (data) {
-                    setBooks(data);  // update only if available
+                    setservers(data);  // update only if available
                 } else {
-                    setBooks([]);  // fallback
+                    setservers([]);  // fallback
                 }
             })
             .catch((error) => {
-                console.error('Error fetching books:', error);
+                console.error('Error fetching servers:', error);
             });
     }, []);
 
     return (
         <div>
-            <h1>Welcome to the Library</h1>
-            <Books books={books} />
+            <h1>Welcome to the our cloud server list</h1>
+            <ServerList />
+            <ServerCard />
         </div>
     );
 }

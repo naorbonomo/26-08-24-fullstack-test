@@ -1,8 +1,9 @@
 import express, { Request, Response } from "express"
 import { appConfig } from "./utils/appConfig";
-import { rentalRouters } from "./controllers/rentalController";
+// import { rentalRouters } from "./controllers/rentalController";
 import catchAll from "./middlewares/catchAll";
 import cors from "cors"
+import { cloudRouters } from "./controllers/cloudController";
 const server = express();
 
 // load body
@@ -16,7 +17,7 @@ server.get("/", (req: Request, res: Response)=>{
 server.use(cors());
 
 // use routers
-server.use("/", rentalRouters)
+server.use("/", cloudRouters);
 
 // catch erros
 server.use(catchAll)
